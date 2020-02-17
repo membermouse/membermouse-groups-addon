@@ -21,15 +21,15 @@ if(count($data) > 0):
 	endforeach;
 
 	if(!empty($groupId)):
-		$groupSql			= "SELECT id,name,leader_memlevel,member_memlevel,group_leader_cost,group_member_cost,group_size FROM ".$wpdb -> prefix."group_items WHERE id = '".$groupId."'";
-		$groupResult		= $wpdb -> get_row($groupSql);
-		$groupId			= $groupResult -> id;
-		$name				= $groupResult -> name;
-		$leader_memlevel	= $groupResult -> leader_memlevel;
-		$member_memlevel	= $groupResult -> member_memlevel;
+		$groupSql						= "SELECT id,name,leader_memlevel,member_memlevel,group_leader_cost,group_member_cost,group_size FROM ".$wpdb -> prefix."group_items WHERE id = '".$groupId."'";
+		$groupResult				= $wpdb -> get_row($groupSql);
+		$groupId						= $groupResult -> id;
+		$name								= $groupResult -> name;
+		$leader_memlevel		= $groupResult -> leader_memlevel;
+		$member_memlevel		= $groupResult -> member_memlevel;
 		$group_leader_cost	= $groupResult -> group_leader_cost;
 		$group_member_cost	= $groupResult -> group_member_cost;
-		$group_size			= $groupResult -> group_size;
+		$group_size					= $groupResult -> group_size;
 	endif;
 endif;
 $leaderSql		= "SELECT lp.product_id AS product_id,p.id AS id,p.name AS name FROM mm_membership_level_products AS lp LEFT JOIN mm_products AS p ON lp.product_id = p.id WHERE lp.membership_id ='".$leader_memlevel."' ORDER BY p.name ASC";

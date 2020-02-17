@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Create Group functionality
+ * - Triggered from Create Group popup in admin area
+ */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $wpdb;
@@ -61,16 +64,32 @@ if(count($data) > 0):
 		endif;
 	endif;
 
+	/**
+	 * Create the group with Group Leader
+	 */
 	if($errs == false):
-		$gNameSql		= "SELECT group_size FROM ".$wpdb -> prefix."group_items WHERE id = '".$group."'";
-		$gNameResult	= $wpdb -> get_row($gNameSql);
-		$group_size		= $gNameResult -> group_size;
-		$sql	= "INSERT INTO ".$wpdb -> prefix."group_sets(id,group_template_id,group_name,group_size,group_leader,group_status,createdDate,modifiedDate)VALUES('','".$group."','".$group_name."','".$group_size."','".$user_id."','1',now(),now())";
-		$query  = $wpdb -> query($sql);
-		if($query):
-			$updateUser 	= wp_update_user(array('ID' => $user_id, 'role' => 'Group Leader'));
+		$gNameSql		 	= "SELECT group_size FROM ". $wpdb->prefix ."group_items WHERE id = '". $group ."'";
+		$gNameResult 	= $wpdb->get_row($gNameSql);
+		$group_size	 	= $gNameResult->group_size;
+		$sql					= "INSERT INTO ". $wpdb->prefix ."group_sets(id,group_template_id,group_name,group_size,group_leader,group_status,createdDate,modifiedDate)VALUES('','". $group ."','". $group_name ."','". $group_size ."','". $user_id ."','1',now(),now())";
+		$query  			= $wpdb->query($sql);
+		if($query) :
+			// Successfully Created Group
+
+			// Change Role
+			$updateUser = wp_update_user(array('ID' => $user_id, 'role' => 'Group Leader'));
+
+			// Add group ID to custom field in MM
+			$mm_user 	= new MM_User($user_id);
+			$group 		= MemberMouseGroupAddon::get_group_from_leader_id($user_id);
+			$group_id = $group->id;
+			$field_id = get_option("mm_custom_field_group_id");
+
+			$mm_user->setCustomData($field_id, $group_id);
+
 			$msg["success"] = 'yes';
-		else:
+		else :
+			// Unsuccessful
 			$msg["success"] = 'no';
 		endif;
 	endif;

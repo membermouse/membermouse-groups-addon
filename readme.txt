@@ -69,6 +69,8 @@ The URL you'll want to send your Group Leader to manage their Groups (adding and
 1. The Groups Dashboard
 
 == Changelog ==
+2.0.4 Create Group in admin area now adds group ID to MemberMouse custom field.
+
 2.0.3 Added group member upgrade/downgrade functionality.
 
 2.0.2 Fixed pagination issues on Admin Group Dashboard and Group Leader Dashboard.

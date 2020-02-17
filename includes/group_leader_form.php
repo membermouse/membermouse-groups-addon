@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Create Group popup form
+ * TODO - update to Swal
+ */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $wpdb;

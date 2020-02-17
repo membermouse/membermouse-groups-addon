@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Manage Groups Tab
+ * - Create Group
+ * - Manage Groups (click into a group to get more info)
+ * ?page=groupsformm&type=manage
+ */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $wpdb;
